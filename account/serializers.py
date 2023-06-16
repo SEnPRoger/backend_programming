@@ -31,8 +31,10 @@ class AccountRegisterSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         account_photo = validated_data.pop('account_photo', None)
+        password = validated_data.pop('password', None)
+
         try:
-            user = Account.objects.create_user(**validated_data)
+            user = Account.objects.create_user(password=password, **validated_data)
         except ParseError:
             raise serializers.ValidationError('Invalid image file')
 
