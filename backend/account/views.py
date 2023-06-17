@@ -22,7 +22,7 @@ class AccountRegister(APIView):
     def post(self, request, format=None):
         serializer = AccountRegisterSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            account = serializer.save()
+            account = serializer.create(serializer.validated_data)
 
             file = request.data.get('account_photo')
             if file is not None:
