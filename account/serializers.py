@@ -38,9 +38,7 @@ class AccountRegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('Both passwords should be equal')
 
         try:
-            user = Account.objects.create_user(**validated_data)
-            user.set_password(password)  # Hash the password
-            user.save()
+            user = Account.objects.create_user(password=password, **validated_data)
         except ParseError:
             raise serializers.ValidationError('Invalid image file')
 
