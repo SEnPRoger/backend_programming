@@ -96,22 +96,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # To use Neon with Django, you have to create a Project on Neon and specify the project connection settings in your settings.py in the same way as for standalone Postgres.
 
-DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'neondb',
-    'USER': 'SEnPRoger',
-    'PASSWORD': 'xhlHt9qbL5RE',
-    'HOST': 'ep-patient-dust-682457.eu-central-1.aws.neon.tech',
-    'PORT': '5432',
-  }
-}
-
-# import dj_database_url
-
 # DATABASES = {
-#     'default' : dj_database_url.parse('postgres://social_wiix_user:KJJkptPbL2xSiDQyGGgYlcYQCNVt5h8C@dpg-ci6seimnqql0ldct6n60-a.frankfurt-postgres.render.com/social_wiix')
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': 'neondb',
+#     'USER': 'SEnPRoger',
+#     'PASSWORD': 'xhlHt9qbL5RE',
+#     'HOST': 'ep-patient-dust-682457.eu-central-1.aws.neon.tech',
+#     'PORT': '5432',
+#   }
 # }
+
+import dj_database_url
+
+DATABASES = {
+    'default' : dj_database_url.parse('postgres://social_wiix_user:KJJkptPbL2xSiDQyGGgYlcYQCNVt5h8C@dpg-ci6seimnqql0ldct6n60-a.frankfurt-postgres.render.com/social_wiix')
+}
 
 
 # Password validation

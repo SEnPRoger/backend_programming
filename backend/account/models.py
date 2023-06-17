@@ -3,10 +3,9 @@ from django.utils import timezone
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 import shutil
 from pathlib import Path
-import bcrypt
 
 class AccountManager(BaseUserManager):
-    def create_user(self, username, nickname, email, birth_date=None, account_photo=None, password=None):
+    def create_user(self, username, nickname, email, birth_date=None, account_photo=None, password=None, password2=None):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -21,9 +20,6 @@ class AccountManager(BaseUserManager):
             account_photo=account_photo,
             birth_date = birth_date,
         )
-
-        # hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-        # user.password = hashed_password.decode('utf-8')
 
         user.set_password(password)
         user.save(using=self._db)
