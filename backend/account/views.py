@@ -35,7 +35,7 @@ class AccountRegister(APIView):
                 account.account_photo = file
                 account.save()
 
-            account = serializer.save()
+            account = serializer.create(serializer.validated_data)
             refresh_token, access_token = JWTToken.generate_tokens(user_id=account.id)
             response = Response({'status':'successfully registered',
                                 'access_token':access_token},
