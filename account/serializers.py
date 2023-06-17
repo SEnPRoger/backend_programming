@@ -21,20 +21,26 @@ class AccountRegisterSerializer(serializers.ModelSerializer):
             'password' : {'write_only':True}
         }
     
-    def validate(self, attrs):
-        password = attrs.get('password')
-        password2 = attrs.get('password2')
+    # def validate(self, attrs):
+    #     password = attrs.get('password')
+    #     password2 = attrs.get('password2')
 
-        if password != password2:
-            raise serializers.ValidationError('Both passwords should be equal')
-        return attrs
+    #     if password != password2:
+    #         raise serializers.ValidationError('Both passwords should be equal')
+    #     return attrs
     
     def create(self, validated_data):
         account_photo = validated_data.pop('account_photo', None)
         password = validated_data.pop('password', None)
+        password2 = validated_data.pop('password2', None)
+
+        if password != password2:
+            raise serializers.ValidationError('Both passwords should be equal')
 
         try:
-            user = Account.objects.create_user(password=password, **validated_data)
+            user = Account.objects.create_user(**validated_data)
+            user.set_password(password)  # Hash the password
+            user.save()
         except ParseError:
             raise serializers.ValidationError('Invalid image file')
 
